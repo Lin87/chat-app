@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChatNavBarComponent } from './chat-nav-bar/chat-nav-bar.component';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
+import { ChatPageComponent } from './chat-page/chat-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChatNavBarComponent,
-    ChatMessageComponent
+    ChatMessageComponent,
+    ChatPageComponent
   ],
   imports: [
     BrowserModule,
