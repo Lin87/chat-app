@@ -8,6 +8,7 @@ import { ThreadsService } from './thread/threads.service';
 import { MessagesService } from './message/messages.service';
 
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module'
 import { ChatMessageComponent } from './chat-message/chat-message.component';
 import { ChatThreadComponent } from './chat-thread/chat-thread.component';
 import { ChatNavBarComponent } from './chat-nav-bar/chat-nav-bar.component';
@@ -30,7 +31,8 @@ import { FromNowPipe } from './pipes/from-now.pipe';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [
     MessagesService, ThreadsService, UsersService
