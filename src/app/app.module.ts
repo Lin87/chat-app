@@ -21,6 +21,13 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from '../environments/environment';
+import { AuthService } from './auth/auth.service';
+import { AuthGuard } from './auth/auth-guard';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,10 +46,13 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [
-    MessagesService, ThreadsService, UsersService
+    MessagesService, ThreadsService, UsersService, AuthService, AuthGuard
   ],
 
   bootstrap: [AppComponent]
