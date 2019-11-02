@@ -66,7 +66,7 @@ export class ChatExampleData {
     // create the initial messages
     initialMessages.map( (message: Message) => messagesService.addMessage(message) );
 
-    threadsService.setCurrentThread(tEcho);
+    //threadsService.setCurrentThread(tEcho);
 
     this.setupBots(messagesService);
   }
