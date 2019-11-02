@@ -1,36 +1,43 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
+import * as firebase from 'firebase/app';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  user:Observable<any>;
+  user:Observable<firebase.User>;
+  userDetails: firebase.User = null;
+  
 
-  constructor(private firebaseAuth: AngularFireAuth, private firestore: AngularFirestore, private router:Router ) {
+  constructor(private firebaseAuth: AngularFireAuth, private router:Router ) {
 
-    this.user = this.firebaseAuth.authState.pipe(
-      switchMap(user => {
+    this.user = firebaseAuth.authState;
+    this.user.subscribe(
+      (user) => {
         if (user) {
-          return this.firestore.doc<any>(`users/${user.uid}`).valueChanges()
+          this.userDetails = user;
         } else {
-          return of(null)
+          this.userDetails = null;
         }
-      })
-    )
+      }
+    );
 
   }
 
-  doLogin() {
-    //this.firebaseAuth
+  isSignedIn() {
+    return this.firebaseAuth.authState.pipe(first());
   }
 
-  signOut() {
+  doSignIn(email: string, password: string) {
+    return this.firebaseAuth.auth.signInWithEmailAndPassword(email, password);
+  }
+
+  doSignOut() {
     this.firebaseAuth.auth.signOut().then(() => {
         this.router.navigate(['/login']);
     });

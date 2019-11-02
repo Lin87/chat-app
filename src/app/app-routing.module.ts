@@ -5,7 +5,6 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth/auth-guard';
 
-
 const routes: Routes = [
   { path: '', component: ChatPageComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
