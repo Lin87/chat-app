@@ -29,11 +29,10 @@ export class ChatWindowComponent implements OnInit {
   constructor(public messagesService: MessagesService,
               public threadsService: ThreadsService,
               public UsersService: UsersService,
-              public el: ElementRef) {
-  }
+              public el: ElementRef) { }
 
   ngOnInit(): void {
-    this.messages = this.threadsService.currentThreadMessages;
+      this.messages = this.threadsService.currentThreadMessages;
 
     this.draftMessage = new Message();
 
@@ -55,6 +54,7 @@ export class ChatWindowComponent implements OnInit {
             this.scrollToBottom();
           });
         });
+    
   }
 
   onEnter(event: any): void {
@@ -74,6 +74,11 @@ export class ChatWindowComponent implements OnInit {
   scrollToBottom(): void {
     const scrollPane: any = this.el
       .nativeElement.querySelector('.msg-container-base');
-    scrollPane.scrollTop = scrollPane.scrollHeight;
+      scrollPane.scrollTop = scrollPane.scrollHeight;
   }
+
+  closeChat() {
+    this.threadsService.closeCurrentThread();
+  }
+
 }
