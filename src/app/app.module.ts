@@ -27,6 +27,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth-guard';
+import { SignedInAuthGuard } from './auth/signed-in-auth-guard';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,7 @@ import { AuthGuard } from './auth/auth-guard';
     AngularFireAuthModule
   ],
   providers: [
-    MessagesService, ThreadsService, UsersService, AuthService, AuthGuard
+    MessagesService, ThreadsService, UsersService, AuthService, AuthGuard, SignedInAuthGuard
   ],
 
   bootstrap: [AppComponent]
