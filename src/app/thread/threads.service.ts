@@ -23,25 +23,9 @@ export class ThreadsService {
   // selected thread
   currentThreadMessages: Observable<Message[]>;
 
+  isClosed: boolean = true;
+
   constructor(public messagesService: MessagesService) {
-
-    // this.threads = messagesService.messages
-    //   .map( (messages: Message[]) => {
-    //     const threads: {[key: string]: Thread} = {};
-    //     // Store the message's thread in our accumulator `threads`
-    //     messages.map((message: Message) => {
-    //       threads[message.thread.id] = threads[message.thread.id] ||
-    //         message.thread;
-
-    //       // Cache the most recent message for each thread
-    //       const messagesThread: Thread = threads[message.thread.id];
-    //       if (!messagesThread.lastMessage ||
-    //           messagesThread.lastMessage.sentAt < message.sentAt) {
-    //         messagesThread.lastMessage = message;
-    //       }
-    //     });
-    //     return threads;
-    //   });
 
       this.threads = messagesService.messages.pipe(
         map(
@@ -64,34 +48,12 @@ export class ThreadsService {
         )
       );
 
-    // this.orderedThreads = this.threads
-    //   .map((threadGroups: { [key: string]: Thread }) => {
-    //     const threads: Thread[] = _.values(threadGroups);
-    //     return _.sortBy(threads, (t: Thread) => t.lastMessage.sentAt).reverse();
-    //   });
-
     this.orderedThreads = this.threads.pipe(
       map((threadGroups: { [key: string]: Thread }) => {
         const threads: Thread[] = _.values(threadGroups);
         return _.sortBy(threads, (t: Thread) => t.lastMessage.sentAt).reverse();
       })
     );
-
-    // this.currentThreadMessages = this.currentThread
-    //   .combineLatest(messagesService.messages,
-    //                  (currentThread: Thread, messages: Message[]) => {
-    //     if (currentThread && messages.length > 0) {
-    //       return _.chain(messages)
-    //         .filter((message: Message) =>
-    //                 (message.thread.id === currentThread.id))
-    //         .map((message: Message) => {
-    //           message.isRead = true;
-    //           return message; })
-    //         .value();
-    //     } else {
-    //       return [];
-    //     }
-    //   });
 
     this.currentThreadMessages = this.currentThread.pipe(
       combineLatest(messagesService.messages,
@@ -112,10 +74,19 @@ export class ThreadsService {
     );
 
     this.currentThread.subscribe(this.messagesService.markThreadAsRead);
+    
   }
 
   setCurrentThread(newThread: Thread): void {
-    this.currentThread.next(newThread);
+    if (newThread) {
+      this.currentThread.next(newThread);
+      this.isClosed = false;
+    }
+  }
+
+  closeCurrentThread() {
+    this.setCurrentThread(new Thread());
+    this.isClosed = true;
   }
 
 }

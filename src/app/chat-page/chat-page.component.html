@@ -2,6 +2,6 @@
   <chat-nav-bar></chat-nav-bar>
   <div class="container">
     <chat-threads></chat-threads>
-    <chat-window></chat-window>
+    <chat-window *ngIf="threadService.isClosed == false"></chat-window>
   </div>
 </div>
