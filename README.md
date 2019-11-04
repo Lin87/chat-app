@@ -13,7 +13,9 @@ https://github.com/Lin87/chat-app
 
 Also, for...
 > when the user would like to chat they click on an icon fixed in the bottom right corner
+
 and
+
 > when the user is done chatting they can click the fixed icon to toggle or hide the display of the chat component.
 I am not exactly sure what the instructions are asking for, and I did not receive an answer when I posted the question on Slack. So, I assumed the UI that the instructions are referring to is outdated.
 
