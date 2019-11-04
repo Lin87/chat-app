@@ -7,7 +7,8 @@ import { AuthGuard } from './auth/auth-guard';
 import { SignedInAuthGuard } from './auth/signed-in-auth-guard';
 
 const routes: Routes = [
-  { path: '', component: ChatPageComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'chat', pathMatch: 'full' },
+  { path: 'chat', component: ChatPageComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent, canActivate:[SignedInAuthGuard] },
   { path: '**', component: PageNotFoundComponent }
 ];

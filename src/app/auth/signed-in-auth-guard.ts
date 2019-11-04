@@ -7,12 +7,12 @@ import { AuthService } from './auth.service';
 })
 export class SignedInAuthGuard implements CanActivate {
 
-  constructor( private auth: AuthService, private router: Router) { }
+  constructor( private auth: AuthService, public router: Router) { }
 
   canActivate(): boolean {
     
     if (this.auth.isSignedIn()) {
-        this.router.navigate(['']);
+        this.router.navigate(['/chat']);
         return false;
     } else {
         return true;
